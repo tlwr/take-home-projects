@@ -11,14 +11,14 @@ import (
 	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/shakespeare"
 	yeo "github.com/tlwr/truelayer-take-home-pokemon-api/internal/ye_olde_pokemon"
 
+	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/handlers"
+
 	pokefake "github.com/tlwr/truelayer-take-home-pokemon-api/internal/fake_pokemon"
 	fakespeare "github.com/tlwr/truelayer-take-home-pokemon-api/internal/fake_shakespeare"
 )
 
 func main() {
 	var (
-		testPokemon = "pikachu"
-
 		pokemonAPI     = "https://pokeapi.co"
 		shakespeareAPI = "https://api.funtranslations.com"
 
@@ -26,11 +26,17 @@ func main() {
 		shakespeareClient shakespeare.ShakespeareClient
 
 		stubAPIs bool
+		port     int
 	)
 
 	// we want to stub APIs because the shakespeare API allegedly has draconian rate limit
 	flag.BoolVar(&stubAPIs, "stubs", false, "if true, use stub APIs")
+	flag.IntVar(&port, "port", 5000, "port on which server should run")
 	flag.Parse()
+
+	if port <= 1024 || port > 65535 {
+		log.Fatalf("port (%d) should be unprivileged, ie between >1024 and <=65535", port)
+	}
 
 	// raw API clients
 	if stubAPIs {
@@ -62,11 +68,16 @@ func main() {
 	// our pokemon client only requests a pokemon once
 	pokemonClient = caching.NewClient(pokemonClient)
 
-	log.Printf("requesting test pokemon (%s)", testPokemon)
-	resp, err := pokemonClient.Get(testPokemon)
-	if err != nil {
-		log.Fatalf("error requesting test pokemon (%s): %s", testPokemon, err)
+	handler := handlers.NewPokemonHandler(pokemonClient)
+
+	// server
+	mux := http.NewServeMux()
+	mux.HandleFunc("/pokemon/", handler.HandleGet)
+
+	s := &http.Server{
+		Addr:    fmt.Sprintf(":%d", port),
+		Handler: mux,
 	}
-	log.Printf("retrieved test pokemon (%s)", resp.Name)
-	log.Printf(`test pokemon (%s) is described as "%s"`, resp.Name, resp.Description)
+
+	log.Fatal(s.ListenAndServe())
 }
