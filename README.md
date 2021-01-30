@@ -56,3 +56,5 @@ Theoretically this is packaged with Docker. This is untested because Docker supp
 * Add metrics (Prometheus with a real HTTP server with middleware)
   * Request/response metrics
   * Pokemon/Shakespeare API client metrics
+
+* Do some sanitisation on the descriptions that come from the APIs, right now any apostrophes or quotes get garbled
