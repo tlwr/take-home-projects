@@ -4,3 +4,6 @@ test:
 
 generate:
 	go generate ./...
+
+build:
+	go build
