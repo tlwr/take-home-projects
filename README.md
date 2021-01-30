@@ -7,6 +7,8 @@ An API which proxies two other APIs:
 * [Pokemon API](https://pokeapi.co)
 * [Shakespeare Translations](https://funtranslations.com/api/shakespeare)
 
+[Google Doc](https://docs.google.com/document/d/1OEa191OL9QF96JDkIZHWUVuiWsDMwVT810rz6SUc-dY)
+
 ## Usage
 
 ```
