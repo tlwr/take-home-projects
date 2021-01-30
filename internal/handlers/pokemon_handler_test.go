@@ -18,6 +18,7 @@ import (
 var _ = Describe("PokemonHandler", func() {
 	var (
 		req      *http.Request
+		resp     *http.Response
 		recorder *httptest.ResponseRecorder
 
 		h  *handlers.PokemonHandler
@@ -32,6 +33,12 @@ var _ = Describe("PokemonHandler", func() {
 		h = handlers.NewPokemonHandler(pc)
 	})
 
+	JustBeforeEach(func() {
+		h.HandleGet(recorder, req)
+		resp = recorder.Result()
+		Expect(resp).NotTo(BeNil())
+	})
+
 	Describe("Get", func() {
 		Context("happy path", func() {
 			BeforeEach(func() {
@@ -44,11 +51,6 @@ var _ = Describe("PokemonHandler", func() {
 			})
 
 			It("returns 200 with name and description", func() {
-				h.HandleGet(recorder, req)
-
-				resp := recorder.Result()
-
-				Expect(resp).NotTo(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
 				Expect(resp.Header.Get("Content-Type")).To(Equal("application/json"))
 
@@ -67,11 +69,6 @@ var _ = Describe("PokemonHandler", func() {
 			})
 
 			It("returns 500 with name and description", func() {
-				h.HandleGet(recorder, req)
-
-				resp := recorder.Result()
-
-				Expect(resp).NotTo(BeNil())
 				Expect(resp.StatusCode).To(Equal(500))
 				Expect(resp.Header.Get("Content-Type")).To(Equal("application/json"))
 
@@ -90,11 +87,6 @@ var _ = Describe("PokemonHandler", func() {
 			})
 
 			It("returns 404 with a descriptive message", func() {
-				h.HandleGet(recorder, req)
-
-				resp := recorder.Result()
-
-				Expect(resp).NotTo(BeNil())
 				Expect(resp.StatusCode).To(Equal(404))
 				Expect(resp.Header.Get("Content-Type")).To(Equal("application/json"))
 
