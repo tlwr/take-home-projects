@@ -82,5 +82,6 @@ func main() {
 		Handler: mux,
 	}
 
+	log.Printf("listening on %s:%d", bind, port)
 	log.Fatal(s.ListenAndServe())
 }
