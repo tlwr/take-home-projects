@@ -8,24 +8,24 @@ import (
 )
 
 type FakePokemonClient struct {
-	GetStub        func(string) (pokemon.GetPokemonResponse, error)
+	GetStub        func(string) (*pokemon.GetPokemonResponse, error)
 	getMutex       sync.RWMutex
 	getArgsForCall []struct {
 		arg1 string
 	}
 	getReturns struct {
-		result1 pokemon.GetPokemonResponse
+		result1 *pokemon.GetPokemonResponse
 		result2 error
 	}
 	getReturnsOnCall map[int]struct {
-		result1 pokemon.GetPokemonResponse
+		result1 *pokemon.GetPokemonResponse
 		result2 error
 	}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *FakePokemonClient) Get(arg1 string) (pokemon.GetPokemonResponse, error) {
+func (fake *FakePokemonClient) Get(arg1 string) (*pokemon.GetPokemonResponse, error) {
 	fake.getMutex.Lock()
 	ret, specificReturn := fake.getReturnsOnCall[len(fake.getArgsForCall)]
 	fake.getArgsForCall = append(fake.getArgsForCall, struct {
@@ -50,7 +50,7 @@ func (fake *FakePokemonClient) GetCallCount() int {
 	return len(fake.getArgsForCall)
 }
 
-func (fake *FakePokemonClient) GetCalls(stub func(string) (pokemon.GetPokemonResponse, error)) {
+func (fake *FakePokemonClient) GetCalls(stub func(string) (*pokemon.GetPokemonResponse, error)) {
 	fake.getMutex.Lock()
 	defer fake.getMutex.Unlock()
 	fake.GetStub = stub
@@ -63,28 +63,28 @@ func (fake *FakePokemonClient) GetArgsForCall(i int) string {
 	return argsForCall.arg1
 }
 
-func (fake *FakePokemonClient) GetReturns(result1 pokemon.GetPokemonResponse, result2 error) {
+func (fake *FakePokemonClient) GetReturns(result1 *pokemon.GetPokemonResponse, result2 error) {
 	fake.getMutex.Lock()
 	defer fake.getMutex.Unlock()
 	fake.GetStub = nil
 	fake.getReturns = struct {
-		result1 pokemon.GetPokemonResponse
+		result1 *pokemon.GetPokemonResponse
 		result2 error
 	}{result1, result2}
 }
 
-func (fake *FakePokemonClient) GetReturnsOnCall(i int, result1 pokemon.GetPokemonResponse, result2 error) {
+func (fake *FakePokemonClient) GetReturnsOnCall(i int, result1 *pokemon.GetPokemonResponse, result2 error) {
 	fake.getMutex.Lock()
 	defer fake.getMutex.Unlock()
 	fake.GetStub = nil
 	if fake.getReturnsOnCall == nil {
 		fake.getReturnsOnCall = make(map[int]struct {
-			result1 pokemon.GetPokemonResponse
+			result1 *pokemon.GetPokemonResponse
 			result2 error
 		})
 	}
 	fake.getReturnsOnCall[i] = struct {
-		result1 pokemon.GetPokemonResponse
+		result1 *pokemon.GetPokemonResponse
 		result2 error
 	}{result1, result2}
 }

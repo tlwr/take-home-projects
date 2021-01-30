@@ -20,15 +20,15 @@ func NewClient(
 	}
 }
 
-func (c *yeOldePokemonClient) Get(name string) (pokemon.GetPokemonResponse, error) {
+func (c *yeOldePokemonClient) Get(name string) (*pokemon.GetPokemonResponse, error) {
 	resp, err := c.wrapped.Get(name)
-	if err != nil {
-		return pokemon.GetPokemonResponse{}, err
+	if resp == nil || err != nil {
+		return nil, err
 	}
 
 	translation, err := c.translator.Translate(resp.Description)
 	if err != nil {
-		return pokemon.GetPokemonResponse{}, err
+		return nil, err
 	}
 
 	resp.Description = translation

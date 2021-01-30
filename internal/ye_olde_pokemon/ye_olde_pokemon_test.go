@@ -28,7 +28,7 @@ var _ = Describe("YeOldePokemon", func() {
 
 	Context("happy path", func() {
 		BeforeEach(func() {
-			f.GetReturns(pokemon.GetPokemonResponse{
+			f.GetReturns(&pokemon.GetPokemonResponse{
 				Name:        "pikachu",
 				Description: "get the multimeter",
 			}, nil)
@@ -50,7 +50,7 @@ var _ = Describe("YeOldePokemon", func() {
 
 	Context("when an the pokemon API returns an error", func() {
 		BeforeEach(func() {
-			f.GetReturns(pokemon.GetPokemonResponse{}, fmt.Errorf("this is an arbitrary error"))
+			f.GetReturns(&pokemon.GetPokemonResponse{}, fmt.Errorf("this is an arbitrary error"))
 		})
 
 		It("returns an error and does not attempt to translate", func() {
@@ -63,7 +63,7 @@ var _ = Describe("YeOldePokemon", func() {
 
 	Context("when the translator returns an error", func() {
 		BeforeEach(func() {
-			f.GetReturns(pokemon.GetPokemonResponse{
+			f.GetReturns(&pokemon.GetPokemonResponse{
 				Name:        "pikachu",
 				Description: "get the multimeter",
 			}, nil)

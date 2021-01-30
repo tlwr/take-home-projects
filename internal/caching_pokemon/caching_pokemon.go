@@ -6,24 +6,24 @@ import (
 
 type cachingPokemonClient struct {
 	wrapped         pokemon.PokemonClient
-	getPokemonCache map[string]pokemon.GetPokemonResponse
+	getPokemonCache map[string]*pokemon.GetPokemonResponse
 }
 
 func NewClient(c pokemon.PokemonClient) pokemon.PokemonClient {
 	return &cachingPokemonClient{
 		wrapped:         c,
-		getPokemonCache: make(map[string]pokemon.GetPokemonResponse, 151),
+		getPokemonCache: make(map[string]*pokemon.GetPokemonResponse, 151),
 	}
 }
 
-func (c *cachingPokemonClient) Get(name string) (pokemon.GetPokemonResponse, error) {
-	if cached, found := c.getPokemonCache[name]; found {
+func (c *cachingPokemonClient) Get(name string) (*pokemon.GetPokemonResponse, error) {
+	if cached, found := c.getPokemonCache[name]; found && cached != nil {
 		return cached, nil
 	}
 
 	cacheable, err := c.wrapped.Get(name)
 	if err != nil {
-		return pokemon.GetPokemonResponse{}, err
+		return nil, err
 	}
 
 	c.getPokemonCache[name] = cacheable

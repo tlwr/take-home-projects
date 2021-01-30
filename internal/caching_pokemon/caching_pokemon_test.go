@@ -24,7 +24,7 @@ var _ = Describe("CachingPokemon", func() {
 
 	Context("happy path", func() {
 		BeforeEach(func() {
-			f.GetReturns(pokemon.GetPokemonResponse{
+			f.GetReturns(&pokemon.GetPokemonResponse{
 				Name:        "pikachu",
 				Description: "get the multimeter",
 			}, nil)
@@ -41,7 +41,7 @@ var _ = Describe("CachingPokemon", func() {
 
 	Context("when called multiple times", func() {
 		BeforeEach(func() {
-			f.GetReturns(pokemon.GetPokemonResponse{
+			f.GetReturns(&pokemon.GetPokemonResponse{
 				Name:        "pikachu",
 				Description: "get the multimeter",
 			}, nil)
@@ -62,12 +62,36 @@ var _ = Describe("CachingPokemon", func() {
 
 	Context("when an error is returned", func() {
 		BeforeEach(func() {
-			f.GetReturns(pokemon.GetPokemonResponse{}, fmt.Errorf("this is an arbitrary error"))
+			f.GetReturns(nil, fmt.Errorf("this is an arbitrary error"))
 		})
 
 		It("returns an error", func() {
 			_, err := c.Get("pikachu")
 			Expect(err).To(MatchError("this is an arbitrary error"))
+		})
+	})
+
+	Context("when nil is returned", func() {
+		BeforeEach(func() {
+			f.GetReturns(nil, nil)
+		})
+
+		It("returns an nil", func() {
+			resp, err := c.Get("pikachu")
+			Expect(resp).To(BeNil())
+			Expect(err).To(BeNil())
+		})
+
+		It("does not cache", func() {
+			resp, err := c.Get("pikachu")
+			Expect(resp).To(BeNil())
+			Expect(err).To(BeNil())
+
+			resp, err = c.Get("pikachu")
+			Expect(resp).To(BeNil())
+			Expect(err).To(BeNil())
+
+			Expect(f.GetCallCount()).To(Equal(2))
 		})
 	})
 })

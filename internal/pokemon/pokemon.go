@@ -15,7 +15,7 @@ type GetPokemonResponse struct {
 }
 
 type PokemonClient interface {
-	Get(name string) (GetPokemonResponse, error)
+	Get(name string) (*GetPokemonResponse, error)
 }
 
 type pokemonClient struct {
@@ -34,7 +34,7 @@ type pokemonSpeciesResponse struct {
 	} `json:"flavor_text_entries"`
 }
 
-func (c *pokemonClient) Get(name string) (p GetPokemonResponse, err error) {
+func (c *pokemonClient) Get(name string) (p *GetPokemonResponse, err error) {
 	url := fmt.Sprintf("%s/api/v2/pokemon-species/%s", c.baseURL, name)
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -48,6 +48,10 @@ func (c *pokemonClient) Get(name string) (p GetPokemonResponse, err error) {
 		return
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode == 404 {
+		return
+	}
 
 	if resp.StatusCode != 200 {
 		err = fmt.Errorf("expected 200 received %d", resp.StatusCode)
@@ -77,8 +81,10 @@ func (c *pokemonClient) Get(name string) (p GetPokemonResponse, err error) {
 		return
 	}
 
-	p.Name = name
-	p.Description = description
+	p = &GetPokemonResponse{
+		Name:        name,
+		Description: description,
+	}
 	return
 }
 

@@ -69,6 +69,22 @@ var _ = Describe("PokemonClient", func() {
 		})
 	})
 
+	Context("when the pokemon is not found", func() {
+		BeforeEach(func() {
+			s.AppendHandlers(ghttp.CombineHandlers(
+				ghttp.VerifyRequest("GET", "/api/v2/pokemon-species/charizard"),
+				ghttp.VerifyContentType("application/json"),
+				ghttp.RespondWith(404, ""),
+			))
+		})
+
+		It("returns neither a response nor an error", func() {
+			resp, err := c.Get("charizard")
+			Expect(resp).To(BeNil())
+			Expect(err).To(BeNil())
+		})
+	})
+
 	Context("when the response is malformed json", func() {
 		BeforeEach(func() {
 			s.AppendHandlers(ghttp.CombineHandlers(
