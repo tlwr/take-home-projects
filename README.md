@@ -42,3 +42,15 @@ Check the `Makefile`:
 ## Docker
 
 Theoretically this is packaged with Docker. This is untested because Docker support on M1 Mac's is non-existent.
+
+## How to improve this
+
+* Add GoDoc for the packages
+
+* Expose any packages that would be useful outside of `internal`
+
+* Add logging (in practice I would use `logrus` and a real HTTP server that supported middleware)
+
+* Add metrics (Prometheus with a real HTTP server with middleware)
+  * Request/response metrics
+  * Pokemon/Shakespeare API client metrics
