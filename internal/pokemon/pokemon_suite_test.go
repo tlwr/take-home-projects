@@ -1,0 +1,13 @@
+package pokemon_test
+
+import (
+	"testing"
+
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
+)
+
+func TestPokemon(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "Pokemon Suite")
+}
