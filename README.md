@@ -37,6 +37,24 @@ By default the API will:
 ./truelayer-take-home-pokemon-api -port 8080 -bind 127.0.0.1
 ```
 
+## Design
+
+There is an API client for the Shakespeare Translation API
+
+There is a `PokemonClient` interface which represents the Pokemon API.
+
+This interface is implemented multiple times:
+* for real usage: `pokemonClient struct`
+* the testing: `FakePokemonClient struct` (`counterfeiter`)
+* for caching
+* for translating descriptions
+
+One `PokemonClient` wraps another,
+the actual server uses `caching(translating(normal client))`,
+so that Pokemon are only requested once and therefore translations are requested once.
+
+Caching is implemented because the Shakespeare API allegedly has a harsh rate limit.
+
 ## Development
 
 Check the `Makefile`:
