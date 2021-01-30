@@ -26,10 +26,13 @@ func main() {
 		shakespeareClient shakespeare.ShakespeareClient
 
 		stubAPIs bool
-		port     int
+
+		bind string
+		port int
 	)
 
 	// we want to stub APIs because the shakespeare API allegedly has draconian rate limit
+	flag.StringVar(&bind, "bind", "", "interface or address to bind to, default all")
 	flag.BoolVar(&stubAPIs, "stubs", false, "if true, use stub APIs")
 	flag.IntVar(&port, "port", 5000, "port on which server should run")
 	flag.Parse()
@@ -75,7 +78,7 @@ func main() {
 	mux.HandleFunc("/pokemon/", handler.HandleGet)
 
 	s := &http.Server{
-		Addr:    fmt.Sprintf(":%d", port),
+		Addr:    fmt.Sprintf("%s:%d", bind, port),
 		Handler: mux,
 	}
 
