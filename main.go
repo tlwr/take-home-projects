@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -36,7 +37,15 @@ func main() {
 		log.Println("stubbing apis")
 
 		fakePokemonClient := &pokefake.FakePokemonClient{}
-		fakePokemonClient.GetReturns(pokemon.GetPokemonResponse{Name: "shrew", Description: ""}, nil)
+		fakePokemonClient.GetCalls(func(name string) (*pokemon.GetPokemonResponse, error) {
+			if name == "pikachu" || name == "charizard" {
+				return &pokemon.GetPokemonResponse{Name: name, Description: ""}, nil
+			} else if name == "missingno" {
+				return nil, fmt.Errorf("missingno")
+			} else {
+				return nil, nil
+			}
+		})
 		pokemonClient = fakePokemonClient
 
 		fakeShakespeareClient := &fakespeare.FakeShakespeareClient{}
