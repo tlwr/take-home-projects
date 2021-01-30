@@ -1,5 +1,7 @@
 package shakespeare
 
+//go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -o ../fake_shakespeare/fake_shakespeare.go . ShakespeareClient
+
 import (
 	"encoding/json"
 	"fmt"
