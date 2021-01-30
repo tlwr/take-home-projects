@@ -35,7 +35,7 @@ var _ = Describe("PokemonHandler", func() {
 	Describe("Get", func() {
 		Context("happy path", func() {
 			BeforeEach(func() {
-				pc.GetReturns(pokemon.GetPokemonResponse{
+				pc.GetReturns(&pokemon.GetPokemonResponse{
 					Name:        "pikachu",
 					Description: "a sparky boi",
 				}, nil)
@@ -61,7 +61,7 @@ var _ = Describe("PokemonHandler", func() {
 
 		Context("when the pokemon client returns an error", func() {
 			BeforeEach(func() {
-				pc.GetReturns(pokemon.GetPokemonResponse{}, fmt.Errorf("oh no"))
+				pc.GetReturns(&pokemon.GetPokemonResponse{}, fmt.Errorf("oh no"))
 
 				req.URL = &(url.URL{Path: "/pokemon/pikachu"})
 			})
@@ -79,6 +79,29 @@ var _ = Describe("PokemonHandler", func() {
 				Expect(err).NotTo(HaveOccurred())
 
 				Expect(b).To(MatchJSON(`{"message": "oh no"}`))
+			})
+		})
+
+		Context("when the pokemon client does not return a pokemon", func() {
+			BeforeEach(func() {
+				pc.GetReturns(nil, nil)
+
+				req.URL = &(url.URL{Path: "/pokemon/pikachu"})
+			})
+
+			It("returns 404 with a descriptive message", func() {
+				h.HandleGet(recorder, req)
+
+				resp := recorder.Result()
+
+				Expect(resp).NotTo(BeNil())
+				Expect(resp.StatusCode).To(Equal(404))
+				Expect(resp.Header.Get("Content-Type")).To(Equal("application/json"))
+
+				b, err := ioutil.ReadAll(resp.Body)
+				Expect(err).NotTo(HaveOccurred())
+
+				Expect(b).To(MatchJSON(`{"message": "not found"}`))
 			})
 		})
 	})

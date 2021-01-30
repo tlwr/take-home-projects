@@ -41,8 +41,6 @@ func writeJSON(rw http.ResponseWriter, status int, o interface{}) {
 func (h *PokemonHandler) HandleGet(rw http.ResponseWriter, req *http.Request) {
 	pokemonName := strings.TrimPrefix(req.URL.Path, "/pokemon/")
 
-	fmt.Println(pokemonName)
-
 	if !pokemonNameValidator.MatchString(pokemonName) {
 		writeJSON(rw, 400, GetPokemonErrorResponse{Message: "could not validate pokemon name"})
 		return
@@ -51,6 +49,11 @@ func (h *PokemonHandler) HandleGet(rw http.ResponseWriter, req *http.Request) {
 	resp, err := h.pc.Get(strings.ToLower(pokemonName))
 	if err != nil {
 		writeJSON(rw, 500, GetPokemonErrorResponse{Message: fmt.Sprintf("%s", err)})
+		return
+	}
+
+	if resp == nil {
+		writeJSON(rw, 404, GetPokemonErrorResponse{Message: "not found"})
 		return
 	}
 
