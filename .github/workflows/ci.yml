@@ -10,8 +10,8 @@ on:
       - main
 
 jobs:
-  test:
-    name: test
+  monzo:
+    name: monzo
     runs-on: ubuntu-latest
     steps:
       - name: setup
@@ -24,9 +24,39 @@ jobs:
 
       - name: dep
         run: go get
+        working-directory: monzo
 
       - name: make
         run: make
+        working-directory: monzo
 
       - name: integration
         run: make integration
+        working-directory: monzo
+
+      - name: docker
+        run: docker build .
+
+  truelayer:
+    name: truelayer
+    runs-on: ubuntu-latest
+    steps:
+      - name: setup
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.15
+
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: dep
+        run: go get
+        working-directory: truelayer
+
+      - name: make
+        run: make
+        working-directory: truelayer
+
+      - name: docker
+        run: docker build .
+        working-directory: truelayer
