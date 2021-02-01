@@ -5,20 +5,37 @@ A crawler written as a take home exercise for Monzo.com
 ## Usage
 
 ```
-# build and get help
+# build
+
 make build
+```
+
+```
+# get help
+
 ./monzo-take-home-crawler -help
 ```
 
 ```
 # crawl my personal website
+
+./monzo-take-home-crawler       \
+  -url 'https://www.toby.codes' \
+  -host '*.toby.codes'          \
+  -host 'toby.codes'            \
+  -host '*.tobys.cloud'
+
 # note that -host is a glob
-./monzo-take-home-crawler -url 'https://www.toby.codes' -host '*.toby.codes' -host 'toby.codes' -host '*.tobys.cloud'
 ```
 
 ```
-# crawler goes brrr
-./monzo-take-home-crawler -host '*.monzo.com' -host 'monzo.com' -url 'https://monzo.com' -parallel 64
+# crawler go brrr
+
+./monzo-take-home-crawler  \
+  -host '*.monzo.com'      \
+  -host 'monzo.com'        \
+  -url 'https://monzo.com' \
+  -parallel 64
 ```
 
 ## Development
@@ -26,11 +43,14 @@ make build
 ```
 # run the tests
 make test
+
+# run the integration tests
 make integration
 ```
 
 ```
 # check code coverage
+
 make coverage
 ginkgo -r -cover -skipPackage integration
 Will skip:
