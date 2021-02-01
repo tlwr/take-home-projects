@@ -41,6 +41,19 @@ var _ = Describe("Usage", func() {
 	})
 })
 
+var _ = Describe("-parallel", func() {
+	Context("when zero", func() {
+		It("displays a helpful error message", func() {
+			command := exec.Command(path, "-parallel", "1024")
+			session, err := Start(command, GinkgoWriter, GinkgoWriter)
+			Expect(err).NotTo(HaveOccurred())
+
+			Eventually(session).Should(Exit(1))
+			Eventually(session.Err).Should(Say("parallel flag should be between 1 and 256"))
+		})
+	})
+})
+
 var _ = Describe("Scraping", func() {
 	It("scrapes my personal website", func() {
 		command := exec.Command(path, "-url", "https://www.toby.codes", "-host", "toby.codes", "-host", "www.toby.codes")

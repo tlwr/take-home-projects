@@ -25,13 +25,19 @@ type result struct {
 
 func main() {
 	var (
-		u     string
-		hosts fllag.StringSliceFlag
+		u        string
+		hosts    fllag.StringSliceFlag
+		parallel int
 	)
 
+	flag.IntVar(&parallel, "parallel", 8, "parallelism factor")
 	flag.StringVar(&u, "url", "", "page on which to begin crawling")
 	flag.Var(&hosts, "host", "crawls pages from this host (valid multiple times)")
 	flag.Parse()
+
+	if parallel < 1 || parallel > 256 {
+		log.Fatal("parallel flag should be between 1 and 256")
+	}
 
 	if len(hosts) == 0 {
 		log.Fatal("host flag is required")
@@ -82,8 +88,7 @@ func main() {
 	log.Printf("queueing first url %s", ur)
 	q.Enqueue(ur)
 
-	numWorkers := 8
-	for wi := 0; wi <= numWorkers; wi++ {
+	for wi := 0; wi <= parallel; wi++ {
 		go q.Iter(func(u *url.URL) {
 			res, err := s.Scrape(u)
 
