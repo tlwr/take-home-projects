@@ -86,7 +86,7 @@ func main() {
 	log.Printf("queueing first url %s", ur)
 	q.Enqueue(ur)
 
-	numWorkers := 1
+	numWorkers := 8
 	for wi := 0; wi <= numWorkers; wi++ {
 		go q.Iter(func(u *url.URL) {
 			res, err := s.Scrape(u)

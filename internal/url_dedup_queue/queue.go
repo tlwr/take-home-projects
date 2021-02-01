@@ -41,7 +41,7 @@ type urlDedupQueue struct {
 
 func New() URLDedupQueue {
 	return &urlDedupQueue{
-		c: make(chan *url.URL, 64),
+		c: make(chan *url.URL, 1024*1024), // should be pretty large to avoid queue saturation for pages with many links
 
 		// expect to see 1k links with 99.95% false positive
 		seen:   bloomfilter.NewCountingBloomFilter(1024, 0.05),
