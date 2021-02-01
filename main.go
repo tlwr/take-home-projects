@@ -51,9 +51,8 @@ func main() {
 		log.Fatalf("could not construct a hostfilter from host flags: %v", err)
 	}
 
-	log.Printf("will crawl %s", ur)
 	for _, host := range hosts {
-		log.Printf("will crawl %s", host)
+		log.Printf("will include URLs within %s", host)
 	}
 
 	errC := make(chan error, 8)
