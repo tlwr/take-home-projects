@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/antchfx/htmlquery v1.2.3
+	github.com/gobwas/glob v0.2.3
 	github.com/goware/urlx v0.3.1
 	github.com/jarcoal/httpmock v1.0.8
 	github.com/kkdai/bloomfilter v0.0.0-20181031180009-70a84758d134
