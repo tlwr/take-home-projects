@@ -6,13 +6,12 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"regexp"
-	"strings"
 	"sync"
 
 	"github.com/goware/urlx" // net/url url.Parse is not great for strict URL parsing
 
 	fllag "github.com/tlwr/monzo-take-home-crawler/internal/flag"
+	"github.com/tlwr/monzo-take-home-crawler/internal/hostfilter"
 	queue "github.com/tlwr/monzo-take-home-crawler/internal/url_dedup_queue"
 	scraper "github.com/tlwr/monzo-take-home-crawler/internal/web_page_scraper"
 
@@ -26,9 +25,8 @@ type result struct {
 
 func main() {
 	var (
-		u          string
-		hosts      fllag.StringSliceFlag
-		hostRegexp = regexp.MustCompile("(?i)^([a-z-0-9]+[.])+[a-z]{2,}$") // naive regexp does not support unicode URLs
+		u     string
+		hosts fllag.StringSliceFlag
 	)
 
 	flag.StringVar(&u, "url", "", "page on which to begin crawling")
@@ -48,10 +46,9 @@ func main() {
 		log.Fatalf("could not validate url: %v", err)
 	}
 
-	for _, host := range hosts {
-		if !hostRegexp.MatchString(host) {
-			log.Fatalf(`host "%s" is not valid`, host)
-		}
+	hf, err := hostfilter.New(hosts)
+	if err != nil {
+		log.Fatalf("could not construct a hostfilter from host flags: %v", err)
 	}
 
 	log.Printf("will crawl %s", ur)
@@ -101,12 +98,8 @@ func main() {
 			}
 
 			for _, link := range res.Links {
-				for _, h := range hosts {
-					// case insensitive host comparison
-					if strings.EqualFold(h, link.Host) {
-						q.Enqueue(link)
-						break
-					}
+				if hf.IsAllowed(link) {
+					q.Enqueue(link)
 				}
 			}
 
