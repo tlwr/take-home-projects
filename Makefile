@@ -5,3 +5,6 @@ test:
 
 integration:
 	go test -v ./integration
+
+build:
+	go build
