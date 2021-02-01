@@ -8,3 +8,6 @@ integration:
 
 build:
 	go build
+
+coverage:
+	ginkgo -r -cover -skipPackage integration
