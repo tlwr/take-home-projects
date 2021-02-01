@@ -23,6 +23,7 @@ var _ = Describe("Scraper", func() {
 
 		s scraper.Scraper
 
+		err error
 		res *scraper.ScrapeResult
 
 		responder httpmock.Responder
@@ -50,10 +51,7 @@ var _ = Describe("Scraper", func() {
 			responder,
 		)
 
-		var err error
 		res, err = s.Scrape(current)
-		Expect(err).NotTo(HaveOccurred())
-		Expect(res.URL).To(Equal(current))
 	})
 
 	Context("happy path", func() {
@@ -72,6 +70,9 @@ var _ = Describe("Scraper", func() {
 		})
 
 		It("aggregates the links", func() {
+			Expect(err).NotTo(HaveOccurred())
+			Expect(res.URL).To(Equal(current))
+
 			Expect(res.Links).To(WithTransform(linksToStrings, ConsistOf(
 				"https://www.monzo.com/start/page/relative",
 				"https://www.monzo.com/host/relative",
@@ -96,6 +97,9 @@ var _ = Describe("Scraper", func() {
 		})
 
 		It("discards the links", func() {
+			Expect(err).NotTo(HaveOccurred())
+			Expect(res.URL).To(Equal(current))
+
 			Expect(res.Links).To(WithTransform(linksToStrings, ConsistOf(
 				"https://foo.bar",
 			)))
@@ -116,7 +120,20 @@ var _ = Describe("Scraper", func() {
 		})
 
 		It("aggregates the parse errors", func() {
+			Expect(err).NotTo(HaveOccurred())
+			Expect(res.URL).To(Equal(current))
+
 			Expect(res.ParseErrors).To(ConsistOf(MatchError(ContainSubstring("empty port"))))
+		})
+	})
+
+	Context("when the status code is not okay", func() {
+		BeforeEach(func() {
+			responder = httpmock.NewStringResponder(403, `<html><body>please go away</body></html>`)
+		})
+
+		It("returns a descriptive error message", func() {
+			Expect(err).To(MatchError(ContainSubstring("expected 200-399 status code received 403")))
 		})
 	})
 })

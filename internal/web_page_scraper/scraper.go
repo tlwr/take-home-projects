@@ -1,6 +1,7 @@
 package web_page_scraper
 
 import (
+	"fmt"
 	"golang.org/x/net/html"
 	"net/http"
 	"net/url"
@@ -37,6 +38,10 @@ func (c *webScraper) Scrape(u *url.URL) (*ScrapeResult, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode >= 400 {
+		return nil, fmt.Errorf("expected 200-399 status code received %d (%s)", resp.StatusCode, u.String())
+	}
 
 	node, err := html.Parse(resp.Body)
 	if err != nil {
