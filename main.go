@@ -32,7 +32,7 @@ func main() {
 
 	flag.IntVar(&parallel, "parallel", 8, "parallelism factor")
 	flag.StringVar(&u, "url", "", "page on which to begin crawling")
-	flag.Var(&hosts, "host", "crawls pages from this host (valid multiple times)")
+	flag.Var(&hosts, "host", "crawls pages from this host (valid multiple times) (can be a glob)")
 	flag.Parse()
 
 	if parallel < 1 || parallel > 256 {
