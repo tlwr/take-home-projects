@@ -34,9 +34,6 @@ jobs:
         run: make integration
         working-directory: monzo
 
-      - name: docker
-        run: docker build .
-
   truelayer:
     name: truelayer
     runs-on: ubuntu-latest
