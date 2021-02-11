@@ -10,9 +10,9 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	pokefake "github.com/tlwr/truelayer-take-home-pokemon-api/internal/fake_pokemon"
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/handlers"
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/pokemon"
+	pokefake "github.com/tlwr/take-home-projects/truelayer/internal/fake_pokemon"
+	"github.com/tlwr/take-home-projects/truelayer/internal/handlers"
+	"github.com/tlwr/take-home-projects/truelayer/internal/pokemon"
 )
 
 var _ = Describe("PokemonHandler", func() {

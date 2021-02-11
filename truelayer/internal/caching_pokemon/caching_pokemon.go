@@ -1,7 +1,7 @@
 package caching_pokemon
 
 import (
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/pokemon"
+	"github.com/tlwr/take-home-projects/truelayer/internal/pokemon"
 )
 
 type cachingPokemonClient struct {

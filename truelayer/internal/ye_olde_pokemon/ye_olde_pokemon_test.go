@@ -6,10 +6,10 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	fake "github.com/tlwr/truelayer-take-home-pokemon-api/internal/fake_pokemon"
-	shake "github.com/tlwr/truelayer-take-home-pokemon-api/internal/fake_shakespeare"
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/pokemon"
-	yeo "github.com/tlwr/truelayer-take-home-pokemon-api/internal/ye_olde_pokemon"
+	fake "github.com/tlwr/take-home-projects/truelayer/internal/fake_pokemon"
+	shake "github.com/tlwr/take-home-projects/truelayer/internal/fake_shakespeare"
+	"github.com/tlwr/take-home-projects/truelayer/internal/pokemon"
+	yeo "github.com/tlwr/take-home-projects/truelayer/internal/ye_olde_pokemon"
 )
 
 var _ = Describe("YeOldePokemon", func() {

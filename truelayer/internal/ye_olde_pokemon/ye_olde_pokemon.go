@@ -1,8 +1,8 @@
 package ye_olde_pokemon
 
 import (
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/pokemon"
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/shakespeare"
+	"github.com/tlwr/take-home-projects/truelayer/internal/pokemon"
+	"github.com/tlwr/take-home-projects/truelayer/internal/shakespeare"
 )
 
 type yeOldePokemonClient struct {

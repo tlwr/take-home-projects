@@ -6,15 +6,15 @@ import (
 	"log"
 	"net/http"
 
-	caching "github.com/tlwr/truelayer-take-home-pokemon-api/internal/caching_pokemon"
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/pokemon"
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/shakespeare"
-	yeo "github.com/tlwr/truelayer-take-home-pokemon-api/internal/ye_olde_pokemon"
+	caching "github.com/tlwr/take-home-projects/truelayer/internal/caching_pokemon"
+	"github.com/tlwr/take-home-projects/truelayer/internal/pokemon"
+	"github.com/tlwr/take-home-projects/truelayer/internal/shakespeare"
+	yeo "github.com/tlwr/take-home-projects/truelayer/internal/ye_olde_pokemon"
 
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/handlers"
+	"github.com/tlwr/take-home-projects/truelayer/internal/handlers"
 
-	pokefake "github.com/tlwr/truelayer-take-home-pokemon-api/internal/fake_pokemon"
-	fakespeare "github.com/tlwr/truelayer-take-home-pokemon-api/internal/fake_shakespeare"
+	pokefake "github.com/tlwr/take-home-projects/truelayer/internal/fake_pokemon"
+	fakespeare "github.com/tlwr/take-home-projects/truelayer/internal/fake_shakespeare"
 )
 
 func main() {

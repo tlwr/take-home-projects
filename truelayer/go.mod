@@ -1,4 +1,4 @@
-module github.com/tlwr/truelayer-take-home-pokemon-api
+module github.com/tlwr/take-home-projects/truelayer
 
 go 1.16
 

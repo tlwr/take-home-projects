@@ -4,7 +4,7 @@ package fake_shakespeare
 import (
 	"sync"
 
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/shakespeare"
+	"github.com/tlwr/take-home-projects/truelayer/internal/shakespeare"
 )
 
 type FakeShakespeareClient struct {

@@ -8,7 +8,7 @@ import (
 
 	"github.com/onsi/gomega/ghttp"
 
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/shakespeare"
+	"github.com/tlwr/take-home-projects/truelayer/internal/shakespeare"
 )
 
 var _ = Describe("ShakespeareClient", func() {

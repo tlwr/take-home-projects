@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/pokemon"
+	"github.com/tlwr/take-home-projects/truelayer/internal/pokemon"
 )
 
 var (

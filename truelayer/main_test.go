@@ -24,7 +24,7 @@ var (
 
 var _ = BeforeSuite(func() {
 	var err error
-	path, err = gexec.Build("github.com/tlwr/truelayer-take-home-pokemon-api")
+	path, err = gexec.Build("github.com/tlwr/take-home-projects/truelayer")
 	Expect(err).NotTo(HaveOccurred())
 })
 

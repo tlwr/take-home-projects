@@ -8,7 +8,7 @@ import (
 
 	"github.com/onsi/gomega/ghttp"
 
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/pokemon"
+	"github.com/tlwr/take-home-projects/truelayer/internal/pokemon"
 )
 
 var _ = Describe("PokemonClient", func() {

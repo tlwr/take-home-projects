@@ -6,9 +6,9 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	caching "github.com/tlwr/truelayer-take-home-pokemon-api/internal/caching_pokemon"
-	fake "github.com/tlwr/truelayer-take-home-pokemon-api/internal/fake_pokemon"
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/pokemon"
+	caching "github.com/tlwr/take-home-projects/truelayer/internal/caching_pokemon"
+	fake "github.com/tlwr/take-home-projects/truelayer/internal/fake_pokemon"
+	"github.com/tlwr/take-home-projects/truelayer/internal/pokemon"
 )
 
 var _ = Describe("CachingPokemon", func() {

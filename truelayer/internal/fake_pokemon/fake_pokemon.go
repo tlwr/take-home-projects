@@ -4,7 +4,7 @@ package fake_pokemon
 import (
 	"sync"
 
-	"github.com/tlwr/truelayer-take-home-pokemon-api/internal/pokemon"
+	"github.com/tlwr/take-home-projects/truelayer/internal/pokemon"
 )
 
 type FakePokemonClient struct {

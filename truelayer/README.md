@@ -1,6 +1,6 @@
 # truelayer-take-home-pokemon-api
 
-![ci](https://github.com/tlwr/truelayer-take-home-pokemon-api/workflows/ci/badge.svg)
+![ci](https://github.com/tlwr/take-home-projects/truelayer/workflows/ci/badge.svg)
 
 An API which proxies two other APIs:
 
