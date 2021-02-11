@@ -1,4 +1,4 @@
-module github.com/tlwr/monzo-take-home-crawler
+module github.com/tlwr/take-home-projects/monzo
 
 go 1.16
 

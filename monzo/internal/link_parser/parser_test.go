@@ -6,7 +6,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	. "github.com/tlwr/monzo-take-home-crawler/internal/link_parser"
+	. "github.com/tlwr/take-home-projects/monzo/internal/link_parser"
 )
 
 var _ = Describe("Parser", func() {

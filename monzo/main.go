@@ -10,10 +10,10 @@ import (
 
 	"github.com/goware/urlx" // net/url url.Parse is not great for strict URL parsing
 
-	fllag "github.com/tlwr/monzo-take-home-crawler/internal/flag"
-	"github.com/tlwr/monzo-take-home-crawler/internal/hostfilter"
-	queue "github.com/tlwr/monzo-take-home-crawler/internal/url_dedup_queue"
-	scraper "github.com/tlwr/monzo-take-home-crawler/internal/web_page_scraper"
+	fllag "github.com/tlwr/take-home-projects/monzo/internal/flag"
+	"github.com/tlwr/take-home-projects/monzo/internal/hostfilter"
+	queue "github.com/tlwr/take-home-projects/monzo/internal/url_dedup_queue"
+	scraper "github.com/tlwr/take-home-projects/monzo/internal/web_page_scraper"
 
 	cl "github.com/tlwr/operator-tools/pkg/colour"
 )

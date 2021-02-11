@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/ginkgo/extensions/table"
 	. "github.com/onsi/gomega"
 
-	queue "github.com/tlwr/monzo-take-home-crawler/internal/url_dedup_queue"
+	queue "github.com/tlwr/take-home-projects/monzo/internal/url_dedup_queue"
 )
 
 var _ = Describe("Queue", func() {

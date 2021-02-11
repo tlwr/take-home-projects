@@ -21,7 +21,7 @@ var (
 
 var _ = BeforeSuite(func() {
 	var err error
-	path, err = Build("github.com/tlwr/monzo-take-home-crawler")
+	path, err = Build("github.com/tlwr/take-home-projects/monzo")
 	Expect(err).NotTo(HaveOccurred())
 })
 
@@ -37,7 +37,7 @@ var _ = Describe("Usage", func() {
 
 		Eventually(session).Should(Exit(0))
 		Eventually(session.Err).Should(Say("Usage of "))
-		Eventually(session.Err).Should(Say("monzo-take-home-crawler"))
+		Eventually(session.Err).Should(Say("monzo"))
 	})
 })
 

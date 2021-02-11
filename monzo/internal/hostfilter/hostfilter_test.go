@@ -6,7 +6,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/tlwr/monzo-take-home-crawler/internal/hostfilter"
+	"github.com/tlwr/take-home-projects/monzo/internal/hostfilter"
 )
 
 var _ = Describe("Hostfilter", func() {

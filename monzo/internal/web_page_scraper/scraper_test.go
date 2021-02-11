@@ -9,7 +9,7 @@ import (
 
 	"github.com/jarcoal/httpmock"
 
-	scraper "github.com/tlwr/monzo-take-home-crawler/internal/web_page_scraper"
+	scraper "github.com/tlwr/take-home-projects/monzo/internal/web_page_scraper"
 )
 
 var _ = Describe("Scraper", func() {

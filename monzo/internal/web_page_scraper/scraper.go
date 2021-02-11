@@ -8,7 +8,7 @@ import (
 
 	"github.com/antchfx/htmlquery"
 
-	link "github.com/tlwr/monzo-take-home-crawler/internal/link_parser"
+	link "github.com/tlwr/take-home-projects/monzo/internal/link_parser"
 )
 
 type ScrapeResult struct {

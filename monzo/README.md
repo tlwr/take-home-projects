@@ -1,4 +1,4 @@
-# monzo-take-home-crawler
+# monzo
 
 A crawler written as a take home exercise for Monzo.com
 
@@ -13,13 +13,13 @@ make build
 ```
 # get help
 
-./monzo-take-home-crawler -help
+./monzo -help
 ```
 
 ```
 # crawl my personal website
 
-./monzo-take-home-crawler       \
+./monzo       \
   -url 'https://www.toby.codes' \
   -host '*.toby.codes'          \
   -host 'toby.codes'            \
@@ -31,7 +31,7 @@ make build
 ```
 # crawler go brrr
 
-./monzo-take-home-crawler  \
+./monzo  \
   -host '*.monzo.com'      \
   -host 'monzo.com'        \
   -url 'https://monzo.com' \
